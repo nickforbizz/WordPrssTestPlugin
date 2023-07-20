@@ -6,7 +6,8 @@
 
 namespace Inc\Base;
 
-class Enqueue{
+class Enqueue extends BaseController
+{
 
     public function register() {
         add_action('admin_enqueue_scripts', array($this, 'enqueue'));
@@ -14,7 +15,7 @@ class Enqueue{
 
 
     public function enqueue() {
-        wp_enqueue_style('pluginstyle', PLUGIN_PATH_URL . 'Assets/style.css' );
-        wp_enqueue_script('pluginstyle', PLUGIN_PATH_URL . 'Assets/main.js' );
+        wp_enqueue_style('pluginstyle', $this->plugin_path_url . 'Assets/style.css' );
+        wp_enqueue_script('pluginstyle', $this->plugin_path_url . 'Assets/main.js' );
     }
 }

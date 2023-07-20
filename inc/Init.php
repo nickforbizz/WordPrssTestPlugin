@@ -6,48 +6,50 @@
 
 namespace Inc;
 
-use Elementor\Core\Admin\Menu\Base;
 
 final class Init{
 
     /**
-     * Store all the classes inside an array
-     *
-     * @return array Full list of classes
-     */
-    public static function get_services(){
-        return array(
-            Pages\Admin::class,
-            Base\Enqueue::class,
-        );
-    }
+	 * Store all the classes inside an array
+	 * @return array Full list of classes
+	 */
+	public static function get_services() 
+	{
+		return [
+			Pages\Admin::class,
+			Base\Enqueue::class,
+			Base\SettingsLinks::class,
+		];
+	}
 
 
     /**
-     * Register the classes
-     *
-     * @return void
-     */
-    public static function register_services(){
-        foreach(self::get_services() as $class){
-            $service = self::instantiate($class);
-            if( method_exists( $service, 'register' ) ){
-                $service->register();
-            }
-        }
-    }
+	 * Loop through the classes, initialize them, 
+	 * and call the register() method if it exists
+	 * @return
+	 */
+    public static function register_services() 
+	{
+		foreach ( self::get_services() as $class ) {
+			$service = self::instantiate( $class );
+			if ( method_exists( $service, 'register' ) ) {
+				$service->register();
+			}
+		}
+	}
 
 
     /**
-     * Instanciate the class
-     *
-     * @param  [type] $class
-     * @return object Instance of the class
-     */
-    public static function instantiate($class){
-        $service = new $class();
-        return $service;
-    }
+	 * Initialize the class
+	 * @param  class $class    class from the services array
+	 * @return class instance  new instance of the class
+	 */
+	private static function instantiate( $class )
+	{
+		$service = new $class();
+
+		return $service;
+	}
 
 }
 
@@ -132,9 +134,3 @@ final class Init{
 // }
 
 
-// // activation hook
-// register_activation_hook(__FILE__, array($testPlugin, 'activate'));
-
-// // deactivation hook
-// register_deactivation_hook(__FILE__, array($testPlugin, 'deactivate'));
-// // uninstallation hook
