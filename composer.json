@@ -1,0 +1,15 @@
+{
+    "name": "nwaruingi/test-plugin",
+    "description": "just for testing purposes",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicholas Waruingi",
+            "email": "NWaruingi@kemri-wellcome.org"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"Inc\\": "./inc"}
+    }
+}
