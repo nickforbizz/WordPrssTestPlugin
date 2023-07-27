@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package TestPlugin
  * 
@@ -14,25 +15,44 @@ class Admin extends BaseController
     public $settings;
 
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->settings = new SettingApi();
     }
 
 
-    public function register() {
+    public function register()
+    {
         // add_action('admin_menu', array($this, 'add_admin_pages'));
-        $pages = array( array(
-            'page_title' => 'Test Plug', 
-            'menu_title' => 'Testplug', 
-            'capability' => 'manage_options', 
-            'menu_slug' => 'Testplug-plugin-settings', 
-            'callback' => function(){ echo "<h1> Hi am Nik </h1>"; }, 
-            'icon_url' => 'dashicons-admin-generic', 
-            'position' => 110, 
-        ) );
+        $pages = array(array(
+            'page_title' => 'Test Plug',
+            'menu_title' => 'Testplug',
+            'capability' => 'manage_options',
+            'menu_slug' => 'Testplug-plugin-settings',
+            'callback' => function () {
+                echo "<h1> Hi am Nik </h1>";
+            },
+            'icon_url' => 'dashicons-admin-generic',
+            'position' => 110,
+        ));
+
+        $subpages = array(array(
+            'parent_slug' => 'Testplug-plugin-settings',
+            'page_title' => 'Categories',
+            'menu_title' => 'Categories',
+            'capability' => 'manage_options',
+            'menu_slug' => 'Testplug-plugin-categories',
+            'callback' => function () {
+                echo "<h1> Hi, its Taxonomies </h1>";
+            },
+        ));
 
 
-        $this->settings->addPages($pages)->register();
+        $this->settings
+            ->addPages($pages)
+            ->withSubPage('General')
+            ->AddSubPages($subpages)
+            ->register();
     }
 
     // public function add_admin_pages() {
@@ -50,7 +70,7 @@ class Admin extends BaseController
     // }
 
 
-   
+
 
     // public function admin_index() {
     //     require_once( $this->plugin_path . 'templates/dashboard.php' );
